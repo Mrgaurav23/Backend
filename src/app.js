@@ -21,8 +21,24 @@ app.use(cookieParser())
 
 // routes import
 import userRouter from './routes/user.routes.js'
+import healthCheckRouter from "./routes/healthcheck.routes.js"
+import commentRoute from "./routes/comment.routes.js"
+import dashboardRoute from "./routes/dashboard.routes.js"
+import like from "./routes/playlist.routes.js"
+import playlistRoute from "./routes/playlist.routes.js"
+import subscriptionRoute from "./routes/subscription.routes.js"
+import tweetRoute from "./routes/tweet.routes.js"
+import videoRoute from "./routes/video.routes.js"
 
 app.use("/api/v1/users",userRouter)
+app.use("/api/v1/healthcheck",healthCheckRouter)
+app.use("/api/v1/comment",commentRoute)
+app.use("/api/v1/dashboard",dashboardRoute)
+app.use("/api/v1/like",like)
+app.use("/api/v1/playlist",playlistRoute)
+app.use("/api/v1/subscription",subscriptionRoute)
+app.use("/api/v1/tweet",tweetRoute)
+app.use("/api/v1/video",videoRoute)
 
 
 export default app
