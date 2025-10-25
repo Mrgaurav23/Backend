@@ -8,15 +8,15 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 const createTweet = asyncHandler(async (req, res) => {
   //TODO: create tweet
 
-  const tweetContent = req.body;
+  const {content} = req.body;
   const userId = req.user.id;
 
-  if (!tweetContent) {
+  if (!content) {
     throw new ApiError(400, "Content is required");
   }
 
-  const tweet = Tweet.create({
-    content: tweetContent.content,
+  const tweet = await Tweet.create({
+    content: content,
     owner: userId,
   });
 
@@ -127,13 +127,13 @@ const getUserTweets = asyncHandler(async (req, res) => {
 const updateTweet = asyncHandler(async (req, res) => {
   //TODO: update tweet
   const {tweetId} = req.params
-  const tweetContent = req.body
+  const {content} = req.body
 
   if(!isValidObjectId(tweetId)){
     throw new ApiError(400,"tweetId is required")
   }
 
-  if(!tweetContent){
+  if(!content){
     throw new ApiError(400,"TweetContent is required")
   }
 
@@ -151,7 +151,7 @@ const updateTweet = asyncHandler(async (req, res) => {
   const updatedTweet = await  Tweet.findByIdAndUpdate(
     tweetId,
     {
-      content : tweetContent.content
+      content : content
     },
     {
       new : true,
@@ -159,7 +159,7 @@ const updateTweet = asyncHandler(async (req, res) => {
     }
   )
 
-  if(!updateTweet){
+  if(!updatedTweet){
     throw new ApiError(500,"Unable to update the tweet !")
   }
 
@@ -195,10 +195,10 @@ const deleteTweet = asyncHandler(async (req, res) => {
   }
 
   // Deleting all likes associated with the tweet
-  await Like.deleteMany({ tweet: tweetId });
+  //await Like.deleteMany({ tweet: tweetId });
 
   // Deleting all comments associated with the tweet
-  await Comment.deleteMany({ tweet: tweetId });
+  //await Comment.deleteMany({ tweet: tweetId });
 
   return res
   .status(200)
