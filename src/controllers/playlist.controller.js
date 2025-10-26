@@ -200,7 +200,7 @@ const addVideoToPlaylist = asyncHandler(async (req, res) => {
     }
 
     // Add video to playlist using $addToSet
-    const updatedplaylist = await Playlist.findByIdAndUpdate(
+    const updatedPlaylist = await Playlist.findByIdAndUpdate(
         playlistId,
         {
             $addToSet: { videos: videoId } // also use $push to add video but addToSet insure duplication
@@ -217,7 +217,7 @@ const addVideoToPlaylist = asyncHandler(async (req, res) => {
     return res
     .status(200)
     .json(
-        new ApiResponse(200, updatedplaylist, "Video added to playlist successfully")
+        new ApiResponse(200, updatedPlaylist, "Video added to playlist successfully")
     )
 })
 
