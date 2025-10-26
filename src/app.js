@@ -24,7 +24,7 @@ import userRouter from './routes/user.routes.js'
 import healthCheckRouter from "./routes/healthcheck.routes.js"
 import commentRoute from "./routes/comment.routes.js"
 import dashboardRoute from "./routes/dashboard.routes.js"
-import like from "./routes/playlist.routes.js"
+import like from "./routes/like.routes.js"
 import playlistRoute from "./routes/playlist.routes.js"
 import subscriptionRoute from "./routes/subscription.routes.js"
 import tweetRoute from "./routes/tweet.routes.js"
