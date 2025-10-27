@@ -170,7 +170,7 @@ const deleteComment = asyncHandler(async (req, res) => {
     throw new ApiError(500,"Unable to delete comment")
   }
 
-  await Like.deleteMany({ comment: commentId });
+  //await Like.deleteMany({ comment: commentId });
 
   return res
     .status(200)
