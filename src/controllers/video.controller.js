@@ -156,7 +156,10 @@ const getVideoById = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Invalid VideoId");
   }
 
-  console.log(videoId);
+  await Video.findByIdAndUpdate(
+    videoId,
+    { $inc: { views: 1 } }
+  );
 
   // Aggregation pipeline to fetch video and owner details efficiently
   const video = await Video.aggregate([

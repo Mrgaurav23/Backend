@@ -13,30 +13,29 @@ import {upload} from "../middlewares/multer.middleware.js"
 const router = Router();
 router.use(verifyJWT); // Apply verifyJWT middleware to all routes in this file
 
-router
-    .route("/")
-    .get(getAllVideos)
-    .post(
-        upload.fields([
-            {
-                name: "videoFile",
-                maxCount: 1,
-            },
-            {
-                name: "thumbnail",
-                maxCount: 1,
-            },
-            
-        ]),
-        publishAVideo
-    );
+// Public routes
 
-router
-    .route("/:videoId")
-    .get(getVideoById)
-    .delete(deleteVideo)
-    .patch(upload.single("thumbnail"), updateVideo);
+router.route("/").get(getAllVideos);
+router.route("/:videoId").get(getVideoById);
 
-router.route("/toggle/publish/:videoId").patch(togglePublishStatus);
+//Private routes
+
+router.route("/").post(
+    verifyJWT,
+    upload.fields([
+        {name : "videoFile" , maxCount : 1},
+        { name: "thumbnail", maxCount: 1 },
+    ]),
+    publishAVideo
+)
+
+// Video delete and update
+router.route("/:videoId")
+.delete(verifyJWT,deleteVideo)
+.patch(verifyJWT,upload.single("thumbnail"), updateVideo)
+
+//changing public status
+router.route("/toggle/publish/:videoId")
+.patch(verifyJWT,togglePublishStatus)
 
 export default router

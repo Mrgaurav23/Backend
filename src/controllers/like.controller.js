@@ -23,6 +23,7 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
     })
 
     let action
+    
     if(like){
         await Like.findByIdAndDelete(like._id)
         action = "unLiked"
@@ -34,10 +35,12 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
         action = "Liked"
     }
 
+    const likeCount = await Like.countDocuments({ video: videoId })
+
     return res
     .status(200)
     .json(
-        new ApiResponse(200,{},`Video ${action} Successfully`)
+        new ApiResponse(200,{likeCount},`Video ${action} Successfully`)
     )
 })
 
